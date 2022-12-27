@@ -3,6 +3,7 @@ package prakhar.udemy.jetpackcompose.jettip
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
@@ -38,7 +39,7 @@ fun MyApp(content: @Composable () -> Unit) {
     }
 }
 
-@Preview
+//@Preview
 @Composable
 fun TopHeader(totalPerPerson: Double = 0.0) {
     Surface(
@@ -75,7 +76,22 @@ fun TopHeader(totalPerPerson: Double = 0.0) {
     }
 }
 
-@Preview(showBackground = true)
+
+@Preview
+@Composable
+fun MainContent() {
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(corner = CornerSize(8.dp)),
+        border = BorderStroke(width = 1.dp, Color.LightGray)
+    ) {
+        Column() {
+            Text(text = "Hello Prakhar.....")
+        }
+    }
+}
+
+//@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     JetTipTheme {
