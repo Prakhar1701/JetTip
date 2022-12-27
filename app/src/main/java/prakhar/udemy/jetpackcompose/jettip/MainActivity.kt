@@ -3,6 +3,7 @@ package prakhar.udemy.jetpackcompose.jettip
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -15,6 +16,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import prakhar.udemy.jetpackcompose.jettip.ui.theme.JetTipTheme
@@ -55,7 +57,8 @@ fun TopHeader() {
                 )
             )
             //OR------------------------------------------------
-            .clip(RoundedCornerShape(corner = CornerSize(12.dp)))
+            .clip(RoundedCornerShape(corner = CornerSize(12.dp))),
+        color = Color(0xFFE9D7F7)
     ) {
 
     }
