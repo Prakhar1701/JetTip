@@ -1,6 +1,7 @@
 package prakhar.udemy.jetpackcompose.jettip
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -84,10 +85,22 @@ fun TopHeader(totalPerPerson: Double = 0.0) {
 }
 
 
-//@OptIn(ExperimentalComposeUiApi::class)
 @Preview(showBackground = true)
 @Composable
 fun MainContent() {
+    BillForm(){
+        billAmt ->
+        Log.d("Bill Amount", "MainContent: $billAmt")
+    }
+}
+
+@Composable
+fun BillForm(
+    modifier: Modifier = Modifier,
+    onValChange: (String) -> Unit = {
+    }
+) {
+
     val totalBillState = remember {
         mutableStateOf("")
     }
@@ -97,6 +110,7 @@ fun MainContent() {
     }
 
 //    val keyboardController: LocalSoftwareKeyboardController
+
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
@@ -110,22 +124,12 @@ fun MainContent() {
                 isSingleLine = true,
                 onAction = KeyboardActions {
                     if (!validState) return@KeyboardActions
-                    //TODO OnValueChanged
+                    onValChange(totalBillState.value.trim())
 
 //                    keyboardController?.hide()  /Not Working
                     //This is for to hide keyboard after we are done entering value and pressing enter.
                 }
             )
-        }
-    }
-}
-
-//@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    JetTipTheme {
-        MyApp {
-            Text(text = "Hello Prakhar !")
         }
     }
 }
