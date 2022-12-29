@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.magnifier
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,14 +24,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import prakhar.udemy.jetpackcompose.jettip.components.InputField
 import prakhar.udemy.jetpackcompose.jettip.ui.theme.JetTipTheme
 import prakhar.udemy.jetpackcompose.jettip.widgets.RoundIconButton
-import kotlin.math.log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,6 +117,11 @@ fun BillForm(
         mutableStateOf(0f)
     }
 
+    val splitByState = remember {
+        mutableStateOf(1)
+    }
+
+    val range = IntRange(start = 1, endInclusive = 100)
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
@@ -158,15 +160,26 @@ fun BillForm(
                     modifier = Modifier.padding(horizontal = 3.dp),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    RoundIconButton(imageVector = Icons.Default.Remove, onClick = { })
+                    RoundIconButton(
+                        imageVector = Icons.Default.Remove,
+                        onClick = {
+                            splitByState.value =
+                                if (splitByState.value > 1) splitByState.value - 1
+                                else 1
+                        })
 
                     Text(
-                        text = "3", modifier = Modifier
+                        text = "${splitByState.value}", modifier = Modifier
                             .align(Alignment.CenterVertically)
                             .padding(start = 9.dp, end = 9.dp)
                     )
 
-                    RoundIconButton(imageVector = Icons.Default.Add, onClick = { })
+                    RoundIconButton(
+                        imageVector = Icons.Default.Add,
+                        onClick = {
+                            if (splitByState.value < range.last)
+                                splitByState.value = splitByState.value + 1
+                        })
 
                 }
             }
