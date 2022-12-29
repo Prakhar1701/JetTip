@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import prakhar.udemy.jetpackcompose.jettip.components.InputField
 import prakhar.udemy.jetpackcompose.jettip.ui.theme.JetTipTheme
 import prakhar.udemy.jetpackcompose.jettip.widgets.RoundIconButton
+import kotlin.math.log
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -197,13 +198,24 @@ fun BillForm(
                 Spacer(modifier = Modifier.height(14.dp))
 
                 //Slider
-                Slider(value = sliderPositionState.value, onValueChange = { newVal ->
-                    sliderPositionState.value = newVal //To see the slider moving :)
-                    Log.d(
-                        "Slider",
-                        "BillForm: $newVal"
-                    )
-                })
+                Slider(
+                    value = sliderPositionState.value,
+                    onValueChange = { newVal ->
+                        sliderPositionState.value = newVal //To see the slider moving :)
+                        Log.d(
+                            "Slider",
+                            "BillForm: $newVal"
+                        )
+                    },
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        end = 16.dp
+                    ),
+                    steps = 5,
+                    onValueChangeFinished = {
+//                        Log.d("Slider Stopped", "BillForm: Finished...")
+                    }
+                )
             }
         }
 //            } else {
