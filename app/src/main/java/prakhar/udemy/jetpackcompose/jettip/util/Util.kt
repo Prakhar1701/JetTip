@@ -1,5 +1,7 @@
 package prakhar.udemy.jetpackcompose.jettip.util
 
+import androidx.compose.ui.text.TextStyle
+
 fun calculateTotalTip(
     totalBill: Double,
     tipPercentage: Int
@@ -7,4 +9,17 @@ fun calculateTotalTip(
     return if (totalBill > 1 && totalBill.toString().isNotEmpty())
         (totalBill * tipPercentage) / 100 else 0.0
 
+}
+
+fun calculateTotalPerPerson(
+    totalBill: Double,
+    splitBy: Int,
+    tipPercentage: Int
+): Double {
+    val bill = calculateTotalTip(
+        totalBill = totalBill,
+        tipPercentage = tipPercentage
+    ) +
+            totalBill
+    return (bill / splitBy)
 }
