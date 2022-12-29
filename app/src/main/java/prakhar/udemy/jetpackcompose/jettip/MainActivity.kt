@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import prakhar.udemy.jetpackcompose.jettip.components.InputField
 import prakhar.udemy.jetpackcompose.jettip.ui.theme.JetTipTheme
+import prakhar.udemy.jetpackcompose.jettip.util.calculateTotalTip
 import prakhar.udemy.jetpackcompose.jettip.widgets.RoundIconButton
 
 class MainActivity : ComponentActivity() {
@@ -104,7 +105,7 @@ fun BillForm(
 ) {
 
     val totalBillState = remember {
-        mutableStateOf("")
+        mutableStateOf("0")
     }
 
     val validState = remember(totalBillState.value) {
@@ -125,6 +126,10 @@ fun BillForm(
     }
 
     val range = IntRange(start = 1, endInclusive = 100)
+
+    val tipAmountState = remember {
+        mutableStateOf(0.0)
+    }
     Surface(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
@@ -199,7 +204,7 @@ fun BillForm(
                 Spacer(modifier = Modifier.width(200.dp))
 
                 Text(
-                    text = "$33.00",
+                    text = "$ ${tipAmountState.value}",
                     modifier = Modifier.align(alignment = Alignment.CenterVertically)
                 )
             }
@@ -209,7 +214,7 @@ fun BillForm(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = "$tipPercentage%")
+                Text(text = "$tipPercentage %")
 
                 Spacer(modifier = Modifier.height(14.dp))
 
@@ -218,10 +223,11 @@ fun BillForm(
                     value = sliderPositionState.value,
                     onValueChange = { newVal ->
                         sliderPositionState.value = newVal //To see the slider moving :)
-                        Log.d(
-                            "Slider",
-                            "BillForm: $newVal"
-                        )
+                        tipAmountState.value =
+                            calculateTotalTip(
+                                totalBill = totalBillState.value.toDouble(),
+                                tipPercentage = tipPercentage
+                            )
                     },
                     modifier = Modifier.padding(
                         start = 16.dp,
